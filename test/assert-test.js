@@ -1562,6 +1562,21 @@ describe("assert", function() {
             );
         });
 
+        it("assert.calledWith exception message with single quote", function() {
+            this.obj.doSomething(4, 3, "that's mine");
+
+            assert.equals(
+                this.message("calledWith", this.obj.doSomething, 1, 3, "that's mine").replace(/ at.*/g, ""),
+                "expected doSomething to be called with arguments \n" +
+                    color.red("4") +
+                    " " +
+                    color.green("1") +
+                    " \n" +
+                    "3\n" +
+                    '"that\'s mine"'
+            );
+        });
+
         it("assert.calledWith exception message with multiple calls", function() {
             this.obj.doSomething(4, 3, "hey");
             this.obj.doSomething(1, 3, "not");
